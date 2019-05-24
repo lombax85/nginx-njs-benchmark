@@ -4,16 +4,20 @@
 function js_function(r) {
     jwt.return = r;
 
+    //var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.XbPfbIHMI6arZ3Y922BhjWgQzWXcXNrz0ogtVhfEd2o";
+    var token = r.args.token;
 
-    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.XbPfbIHMI6arZ3Y922BhjWgQzWXcXNrz0ogtVhfEd2o";
-    var decoded = jwt.decode(token, "secret", false, 'HS256');
+    try {
+        var decoded = jwt.decode(token, "secret", false, 'HS256');
+        r.internalRedirect('@private');
+    } catch (e) {
+        r.return(200, 'ERROR');
+    }
 
-    r.return(200, JSON.stringify(decoded));
+
+
+
 }
-
-
-
-
 
 
 /*
